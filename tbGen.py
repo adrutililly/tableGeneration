@@ -3,9 +3,7 @@ from langgraph.graph import StateGraph, END
 from models import llm  
 from langchain_core.messages import HumanMessage, SystemMessage
 
-# ----------------------
-# Workflow State Definition
-# ----------------------
+
 class TableGenerationState(TypedDict):
     input_text: str  
     identified_headers: Annotated[list, "headers"]  
@@ -84,9 +82,7 @@ def validate_table(state: TableGenerationState):
     print(f"\nIdentified Headers: {headers}\n")
     return state
 
-# ----------------------
-# Build & Compile the Workflow
-# ----------------------
+
 workflow = StateGraph(TableGenerationState)
 workflow.add_node("header_identifier", identify_headers)
 workflow.add_node("table_generator", generate_table)
@@ -114,16 +110,14 @@ if __name__ == "__main__":
     Patients with rheumatoid arthritis and osteoarthritis were monitored over a period of four weeks to evaluate the effectiveness of Medorin. During Week 1, rheumatoid arthritis patients experienced a 20% reduction in joint swelling, a mobility improvement of +2 points, and an 18% decrease in inflammatory markers. In the same week, osteoarthritis patients showed a 15% reduction in joint swelling, a +1.5-point mobility improvement, and a 12% decrease in inflammatory markers. By Week 4, the rheumatoid arthritis group saw a 35% reduction in joint swelling, a +3-point increase in mobility, and a 25% drop in inflammatory markers, while osteoarthritis patients achieved a 30% reduction in swelling, a +2.5-point mobility improvement, and a 20% reduction in inflammatory markers.
     """
 
-    # Generate raw markdown table
+
     md_table = generate_table_from_text(input_text)
     print("Raw Markdown:\n", md_table, "\n")
 
-    # Extract only the lines starting with '|' to feed into pandas
     lines = md_table.splitlines()
     table_lines = [ln for ln in lines if ln.strip().startswith("|")]
     clean_md = "\n".join(table_lines)
 
-    # Read the markdown table into a DataFrame
     df = pd.read_csv(
         StringIO(clean_md),
         sep="|",
