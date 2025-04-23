@@ -1,19 +1,14 @@
-# table_frontend.py
-# Streamlit app to generate a table from text and verify its accuracy via QA
+
 
 import streamlit as st
 import pandas as pd
 from io import StringIO
 
-# Import the table-generation and QA pipelines
+
 from tbGen import generate_table_from_text
 from tbQA import qa_table_from_text
 
-# ----------------------
-# Streamlit App Definition
-# ----------------------
 
-# Title and instructions
 st.title("📊 Text-to-Table Generator & QA Verifier")
 st.write(
     """
@@ -27,14 +22,14 @@ st.write(
     """
 )
 
-# Text input area
+
 input_text = st.text_area(
     label="Enter text to extract a table:",
     height=200,
     placeholder="Paste your unstructured text here..."
 )
 
-# Generate button
+
 if st.button("Generate & Verify"):
     if not input_text.strip():
         st.warning("Please enter some text before generating the table.")
