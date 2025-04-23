@@ -1,28 +1,23 @@
 
 from typing import TypedDict, List, Annotated, Dict
 from langgraph.graph import StateGraph, END
-from models import llm  # Pre-configured LLM instance
+from models import llm  
 from langchain_core.messages import HumanMessage, SystemMessage
-from tbGen import generate_table_from_text  # Your table generation pipeline
+from tbGen import generate_table_from_text  
 
 class QAState(TypedDict):
     input_text: str
-    # Raw source text used to generate and verify the table
 
     generated_table: str
-    # Markdown table produced by the table-generation pipeline
 
     questions: Annotated[List[str], "questions"]
-    # List of verification questions about table values/trends
 
     table_answers: Annotated[List[str], "table_answers"]
-    # Answers extracted from the table for each question
 
     text_answers: Annotated[List[str], "text_answers"]
-    # Answers extracted from the original text for each question
 
     validation_results: Annotated[List[bool], "validation"]
-    # Boolean list indicating whether each table answer matches the text answer
+
 
 
 # ----------------------------
@@ -136,7 +131,7 @@ def validate_answers(state: QAState) -> dict:
 
     validation: List[bool] = []
     for t_ans, txt_ans in zip(table_answers, text_answers):
-        # Normalize both strings for fair comparison
+
         normalize = lambda s: (
             s.lower()
              .replace(" ", "")
@@ -171,10 +166,9 @@ def qa_table_from_text(text: str) -> dict:
     2. Runs the QA workflow on that table and the same text
     3. Returns the full state, including questions, answers, and validation flags
     """
-    # Step A: Create the table
+   
     generated_table = generate_table_from_text(text)
 
-    # Step B: Invoke QA workflow
     results = qa_app.invoke({
         "input_text": text,
         "generated_table": generated_table
@@ -190,17 +184,17 @@ if __name__ == "__main__":
     Patients with rheumatoid arthritis and osteoarthritis were monitored over a period of four weeks to evaluate the effectiveness of Medorin...
     """
 
-    # Run QA pipeline
+
     results = qa_table_from_text(sample_text)
 
-    # Summarize QA report
+
     print("\n" + "="*20 + " QA Report " + "="*20)
     total = len(results["questions"])
     correct = sum(results["validation_results"])
     print(f"Questions Generated: {total}")
     print(f"Correct Answers  : {correct}/{total}\n")
 
-    # Print individual Q/A and validation
+
     for idx, (q, t_ans, txt_ans, valid) in enumerate(zip(
         results["questions"],
         results["table_answers"],
@@ -213,7 +207,7 @@ if __name__ == "__main__":
         print(f"   Text  Answer: {txt_ans}")
         print(f"   Match       : {status}\n")
 
-    # Final assessment
+
     match_rate = correct / total if total else 0
     if match_rate == 1:
         print("All answers match perfectly! 🎉")
