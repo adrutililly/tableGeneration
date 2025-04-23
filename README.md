@@ -55,7 +55,7 @@ A LangGraph-powered pipeline and Streamlit front-end that transforms unstructure
 .
 ├── tbGen.py            # Core table‐generation LangGraph pipeline
 ├── tbQA.py             # QA‐generation & verification LangGraph pipeline
-├── tbfe.py             # Streamlit front-end (“Text-to-Table & QA Verifier”) 
+├── tbFE.py             # Streamlit front-end (“Text-to-Table & QA Verifier”) 
 ├── models.py           # LLM client setup (Azure, Ollama, etc.)
 ├── requirements.txt    # Python dependencies
 └── README.md           # This file
@@ -66,13 +66,13 @@ A LangGraph-powered pipeline and Streamlit front-end that transforms unstructure
 ## ▶️ Running the App
 
 ```bash
-streamlit run tbfe.py
+streamlit run tbFE.py
 ```
 
 Or, if `streamlit` isn’t on your PATH:
 
 ```bash
-python3 -m streamlit run tbfe.py
+python3 -m streamlit run tbFE.py
 ```
 
 Then open your browser to `http://localhost:8501`.
