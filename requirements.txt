@@ -1,22 +1,23 @@
-# Core LangChain components
+
 langchain>=0.1.0
-langchain-community>=0.0.20
 
-# Ollama integration (comes with langchain-community)
-# No need for OpenAI unless you want to use cloud
-
-# PDF processing
 pypdf>=3.16.4
 
-# Text splitting & data
 pandas>=2.1.4
 
-# Vector search (if you later use FAISS-based storage)
 faiss-cpu>=1.7.4
 
-# For managing .env configs (if needed)
 python-dotenv>=1.0.1
 
 tabulate>=0.9.0
 
 streamlit>=1.30.0
+
+pydantic>=1.10.2
+
+ipython>=8.0.0
+
+requests>=2.28.0
+
+typing_extensions>=4.5.0
+langgraph>=0.1.0
