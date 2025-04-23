@@ -16,9 +16,9 @@ from dotenv import load_dotenv
 
 
 
-tenant_id = "18a59a81-eea8-4c30-948a-d8824cdc2580"
+tenant_id = ""
 client_secret = ""
-client_id = "9ca21d06-5810-4e98-8cb1-045d056d354d"
+client_id = ""
 
 
 
