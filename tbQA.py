@@ -1,6 +1,3 @@
-# tbQA.py
-# LangGraph workflow to generate verification questions for a table extracted from text,
-# extract answers from both the table and the original text, and compare them for accuracy.
 
 from typing import TypedDict, List, Annotated, Dict
 from langgraph.graph import StateGraph, END
@@ -8,9 +5,6 @@ from models import llm  # Pre-configured LLM instance
 from langchain_core.messages import HumanMessage, SystemMessage
 from tbGen import generate_table_from_text  # Your table generation pipeline
 
-# ----------------------------
-# Define the workflow state schema
-# ----------------------------
 class QAState(TypedDict):
     input_text: str
     # Raw source text used to generate and verify the table
@@ -155,9 +149,7 @@ def validate_answers(state: QAState) -> dict:
     return {"validation_results": validation}
 
 
-# ----------------------------
-# Build and Compile the QA Workflow
-# ----------------------------
+
 workflow = StateGraph(QAState)
 workflow.add_node("generate_questions", generate_questions)
 workflow.add_node("extract_table_answers", extract_table_answers)
@@ -173,9 +165,6 @@ workflow.add_edge("validate_answers", END)
 qa_app = workflow.compile()
 
 
-# ----------------------------
-# Main QA Function to Run the Pipeline
-# ----------------------------
 def qa_table_from_text(text: str) -> dict:
     """
     1. Generates a table from text using tbGen.generate_table_from_text
