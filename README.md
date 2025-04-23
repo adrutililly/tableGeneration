@@ -33,7 +33,7 @@ A LangGraph-powered pipeline and Streamlit front-end that transforms unstructure
 1. **Clone the repo**  
    ```bash
    git clone https://github.com/adrutililly/tableGeneration.git
-   cd text-to-table-qa
+   cd tableGeneration
    ```
 
 2. **(Optional) Create a virtual environment**  
